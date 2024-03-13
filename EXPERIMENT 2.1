@@ -1,0 +1,384 @@
+DML COMMANDS
+
+1.DML-UPDATE
+-----------------
+
+1.Change the price of a particular product:
+
+mysql> select * from product;
++-----+--------+-------+
+| pid | pname  | price |
++-----+--------+-------+
+|   1 | pen    |    50 |
+|   2 | pencil |    30 |
+|   3 | soap   |   100 |
+|   4 | book   |    80 |
+|   5 | bag    |   130 |
++-----+--------+-------+
+5 rows in set (0.00 sec)
+
+mysql> update  product set price=55 where pid=001;
+Query OK, 1 row affected (0.00 sec)
+Rows matched: 1  Changed: 1  Warnings: 0
+
+mysql> select * from product;
++-----+--------+-------+
+| pid | pname  | price |
++-----+--------+-------+
+|   1 | pen    |    55 |
+|   2 | pencil |    30 |
+|   3 | soap   |   100 |
+|   4 | book   |    80 |
+|   5 | bag    |   130 |
++-----+--------+-------+
+5 rows in set (0.01 sec)
+
+2.change the name of city 'calicut' to 'kozhikode' in customer table:
+
+mysql> select * from customer;
++-------+--------+---------+---------+------------+
+| id    | name   | address | city    | ph_no      |
++-------+--------+---------+---------+------------+
+| 10001 | lumna  | ABCD    | calicut | 2345678901 |
+| 10002 | thehzi | EFGH    | ekm     |       NULL |
+| 10003 | shamla | HIJK    | tvm     | 5423986754 |
+| 10004 | hadiya | LMNO    | pkd     | 5643095643 |
+| 10005 | banu   | PQRS    | wynd    |       NULL |
++-------+--------+---------+---------+------------+
+5 rows in set (0.00 sec)
+
+mysql> update  customer set city='kozhikode' where city='calicut';
+Query OK, 1 row affected (0.01 sec)
+Rows matched: 1  Changed: 1  Warnings: 0
+
+mysql> select * from customer;
++-------+--------+---------+-----------+------------+
+| id    | name   | address | city      | ph_no      |
++-------+--------+---------+-----------+------------+
+| 10001 | lumna  | ABCD    | kozhikode | 2345678901 |
+| 10002 | thehzi | EFGH    | ekm       |       NULL |
+| 10003 | shamla | HIJK    | tvm       | 5423986754 |
+| 10004 | hadiya | LMNO    | pkd       | 5643095643 |
+| 10005 | banu   | PQRS    | wynd      |       NULL |
++-------+--------+---------+-----------+------------+
+5 rows in set (0.00 sec)
+
+3.Update all prices with 2% of its original price:
+
+mysql> select * from product;
++-----+--------+-------+
+| pid | pname  | price |
++-----+--------+-------+
+|   1 | pen    |    55 |
+|   2 | pencil |    30 |
+|   3 | soap   |   100 |
+|   4 | book   |    80 |
+|   5 | bag    |   130 |
++-----+--------+-------+
+5 rows in set (0.00 sec)
+
+mysql> update  product set price=price+(price*2/100);
+Query OK, 5 rows affected (0.00 sec)
+Rows matched: 5  Changed: 5  Warnings: 0
+
+mysql> select * from product;
++-----+--------+-------+
+| pid | pname  | price |
++-----+--------+-------+
+|   1 | pen    |    56 |
+|   2 | pencil |    31 |
+|   3 | soap   |   102 |
+|   4 | book   |    82 |
+|   5 | bag    |   133 |
++-----+--------+-------+
+5 rows in set (0.00 sec)
+
+4.Change the address,city,phone number of a particular customer:
+
+mysql> select * from customer;
++-------+--------+---------+-----------+------------+
+| id    | name   | address | city      | ph_no      |
++-------+--------+---------+-----------+------------+
+| 10001 | lumna  | ABCD    | kozhikode | 2345678901 |
+| 10002 | thehzi | EFGH    | ekm       |       NULL |
+| 10003 | shamla | HIJK    | tvm       | 5423986754 |
+| 10004 | hadiya | LMNO    | pkd       | 5643095643 |
+| 10005 | banu   | PQRS    | wynd      |       NULL |
++-------+--------+---------+-----------+------------+
+5 rows in set (0.00 sec)
+
+mysql> update customer set address='XXXYZ',city='thrissur',ph_no=1234567891 where id=10005;
+Query OK, 1 row affected (0.01 sec)
+Rows matched: 1  Changed: 1  Warnings: 0
+
+mysql> select * from customer;
++-------+--------+---------+-----------+------------+
+| id    | name   | address | city      | ph_no      |
++-------+--------+---------+-----------+------------+
+| 10001 | lumna  | ABCD    | kozhikode | 2345678901 |
+| 10002 | thehzi | EFGH    | ekm       |       NULL |
+| 10003 | shamla | HIJK    | tvm       | 5423986754 |
+| 10004 | hadiya | LMNO    | pkd       | 5643095643 |
+| 10005 | banu   | XXXYZ   | thrissur  | 1234567891 |
++-------+--------+---------+-----------+------------+
+5 rows in set (0.00 sec)
+
+
+5.Change the quantity of purchased product of inv_id '101':
+
+mysql> select * from invoice_item;
++--------+------+----------+
+| inv_id | pid  | quantity |
++--------+------+----------+
+|    101 |    1 |        1 |
+|    102 |    2 |        1 |
+|    103 |    3 |        1 |
+|    104 |    4 |        2 |
+|    105 |    5 |        2 |
++--------+------+----------+
+5 rows in set (0.00 sec)
+
+mysql> update invoice_item set quantity=2 where inv_id=101;
+Query OK, 1 row affected (0.00 sec)
+Rows matched: 1  Changed: 1  Warnings: 0
+
+mysql> select * from invoice_item;
++--------+------+----------+
+| inv_id | pid  | quantity |
++--------+------+----------+
+|    101 |    1 |        2 |
+|    102 |    2 |        1 |
+|    103 |    3 |        1 |
+|    104 |    4 |        2 |
+|    105 |    5 |        2 |
++--------+------+----------+
+5 rows in set (0.00 sec)
+
+
+
+
+DML-DELETE
+--------------
+
+1.Delete the record of customer id '10001':
+
+mysql> select * from customer;
++-------+--------+---------+-----------+------------+
+| id    | name   | address | city      | ph_no      |
++-------+--------+---------+-----------+------------+
+| 10001 | lumna  | ABCD    | kozhikode | 2345678901 |
+| 10002 | thehzi | EFGH    | ekm       |       NULL |
+| 10003 | shamla | HIJK    | tvm       | 5423986754 |
+| 10004 | hadiya | LMNO    | pkd       | 5643095643 |
+| 10005 | banu   | XXXYZ   | thrissur  | 1234567891 |
++-------+--------+---------+-----------+------------+
+5 rows in set (0.00 sec)
+
+mysql> set foreign_key_checks=0;
+Query OK, 0 rows affected (0.00 sec)
+
+mysql> delete from customer where id=10001;
+Query OK, 1 row affected (0.01 sec)
+
+mysql> select *from  customer;
++-------+--------+---------+----------+------------+
+| id    | name   | address | city     | ph_no      |
++-------+--------+---------+----------+------------+
+| 10002 | thehzi | EFGH    | ekm      |       NULL |
+| 10003 | shamla | HIJK    | tvm      | 5423986754 |
+| 10004 | hadiya | LMNO    | pkd      | 5643095643 |
+| 10005 | banu   | XXXYZ   | thrissur | 1234567891 |
++-------+--------+---------+----------+------------+
+4 rows in set (0.00 sec)
+
+2.Delete all purchase details of item its quantity less than 2:
+
+mysql> select *from  invoice_item;
++--------+------+----------+
+| inv_id | pid  | quantity |
++--------+------+----------+
+|    101 |    1 |        2 |
+|    102 |    2 |        1 |
+|    103 |    3 |        1 |
+|    104 |    4 |        2 |
+|    105 |    5 |        2 |
++--------+------+----------+
+5 rows in set (0.00 sec)
+
+mysql> delete from invoice_item where quantity<2;
+Query OK, 2 rows affected (0.01 sec)
+
+mysql> select *from  invoice_item;
++--------+------+----------+
+| inv_id | pid  | quantity |
++--------+------+----------+
+|    101 |    1 |        2 |
+|    104 |    4 |        2 |
+|    105 |    5 |        2 |
++--------+------+----------+
+3 rows in set (0.00 sec)
+
+3.Delete the purchase details of product 'pen' in the inv_id '101':
+
+mysql> select * from product;
++-----+--------+-------+
+| pid | pname  | price |
++-----+--------+-------+
+|   1 | pen    |    56 |
+|   2 | pencil |    31 |
+|   3 | soap   |   102 |
+|   4 | book   |    82 |
+|   5 | bag    |   133 |
++-----+--------+-------+
+5 rows in set (0.00 sec)
+
+mysql> select * from invoice_item;
++--------+------+----------+
+| inv_id | pid  | quantity |
++--------+------+----------+
+|    101 |    1 |        2 |
+|    104 |    4 |        2 |
+|    105 |    5 |        2 |
++--------+------+----------+
+3 rows in set (0.00 sec)
+
+mysql> delete from invoice_item  where inv_id=101 and pid=1;
+Query OK, 1 row affected (0.00 sec)
+
+mysql> select * from invoice_item;
++--------+------+----------+
+| inv_id | pid  | quantity |
++--------+------+----------+
+|    104 |    4 |        2 |
+|    105 |    5 |        2 |
++--------+------+----------+
+2 rows in set (0.00 sec)
+
+
+4.Delete details of employee who does not have phone number:
+
+mysql> select * from customer;
++-------+--------+---------+----------+------------+
+| id    | name   | address | city     | ph_no      |
++-------+--------+---------+----------+------------+
+| 10002 | thehzi | EFGH    | ekm      |       NULL |
+| 10003 | shamla | HIJK    | tvm      | 5423986754 |
+| 10004 | hadiya | LMNO    | pkd      | 5643095643 |
+| 10005 | banu   | XXXYZ   | thrissur | 1234567891 |
++-------+--------+---------+----------+------------+
+4 rows in set (0.00 sec)
+
+mysql> set foreign_key_checks=0;
+Query OK, 0 rows affected (0.00 sec)
+
+mysql> delete from customer where ph_no is NULL;
+Query OK, 1 row affected (0.00 sec)
+
+mysql> select * from customer;
++-------+--------+---------+----------+------------+
+| id    | name   | address | city     | ph_no      |
++-------+--------+---------+----------+------------+
+| 10003 | shamla | HIJK    | tvm      | 5423986754 |
+| 10004 | hadiya | LMNO    | pkd      | 5643095643 |
+| 10005 | banu   | XXXYZ   | thrissur | 1234567891 |
++-------+--------+---------+----------+------------+
+3 rows in set (0.00 sec)
+
+5.delete all records from student table.
+
+mysql> use ksb;
+Reading table information for completion of table and column names
+You can turn off this feature to get a quicker startup with -A
+
+Database changed
+
+mysql> select * from studentt;
++---------+---------+------+----------+--------+
+| roll_no | name    | age  | address  | gender |
++---------+---------+------+----------+--------+
+|       1 | anjali  |   19 | edappal  | female |
+|       2 | lumna   |   21 | edavanna | female |
+|       3 | anugrah |   22 | manjeri  | male   |
+|       4 | ram     |   23 | wayanad  | male   |
+|       5 | nushri  |   22 | wayanad  | fmale  |
++---------+---------+------+----------+--------+
+5 rows in set (0.01 sec)
+
+mysql> delete from studentt;
+Query OK, 5 rows affected (0.01 sec)
+
+mysql> select * from studentt;
+Empty set (0.00 sec)
+
+6.Delete invoice details of a particular customer.
+
+mysql> use invoice;
+Reading table information for completion of table and column names
+You can turn off this feature to get a quicker startup with -A
+
+Database changed
+mysql> show tables;
++-------------------+
+| Tables_in_invoice |
++-------------------+
+| customer          |
+| invoice_item      |
+| invoice_master    |
+| product           |
++-------------------+
+4 rows in set (0.00 sec)
+
+mysql> select * from customer;
++-------+--------+---------+----------+------------+
+| id    | name   | address | city     | ph_no      |
++-------+--------+---------+----------+------------+
+| 10003 | shamla | HIJK    | tvm      | 5423986754 |
+| 10004 | hadiya | LMNO    | pkd      | 5643095643 |
+| 10005 | banu   | XXXYZ   | thrissur | 1234567891 |
++-------+--------+---------+----------+------------+
+3 rows in set (0.00 sec)
+
+mysql> set foreign_key_checks=0;
+Query OK, 0 rows affected (0.01 sec)
+
+mysql> delete from customer where id=10003;
+Query OK, 1 row affected (0.01 sec)
+
+mysql> select * from customer;
++-------+--------+---------+----------+------------+
+| id    | name   | address | city     | ph_no      |
++-------+--------+---------+----------+------------+
+| 10004 | hadiya | LMNO    | pkd      | 5643095643 |
+| 10005 | banu   | XXXYZ   | thrissur | 1234567891 |
++-------+--------+---------+----------+------------+
+2 rows in set (0.00 sec)
+
+7.delete the first two records of invoice_item table its purchase quandity is high,
+
+mysql> select * from invoice_item;
++--------+------+----------+
+| inv_id | pid  | quantity |
++--------+------+----------+
+|    104 |    4 |        2 |
+|    105 |    5 |        2 |
++--------+------+----------+
+2 rows in set (0.01 sec)
+
+mysql> select * from invoice_item;
++--------+------+----------+
+| inv_id | pid  | quantity |
++--------+------+----------+
+|    104 |    4 |        2 |
+|    105 |    5 |        2 |
++--------+------+----------+
+2 rows in set (0.01 sec)
+
+mysql> delete from invoice_item where quatity=2;
+ERROR 1054 (42S22): Unknown column 'quatity' in 'where clause'
+mysql> delete from invoice_item where quantity=2;
+Query OK, 2 rows affected (0.01 sec)
+
+mysql> select * from invoice_item;
+Empty set (0.00 sec)
+
+
