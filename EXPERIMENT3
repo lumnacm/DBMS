@@ -1,0 +1,219 @@
+                                              TCL &DCL COMMANDS
+                                              
+//TCL COMMANDS:                                      
+
+1.  COMMIT:
+  
+  mysql> set autocommit=off;
+Query OK, 0 rows affected (0.01 sec)
+mysql> insert into person values(6,'thehzi','kollam',2004,9785643);
+Query OK, 1 row affected (0.00 sec)
+
+mysql> select * from person;
+
++------+--------+------------+------+----------+
+| SSN  | name   | city       | dob  | adhar_no |
++------+--------+------------+------+----------+
+|    1 | anu    | calicut    | 1998 |   675439 |
+|    2 | abi    | palakkad   | 1999 | 78564309 |
+|    3 | ram    | malappuram | 2000 | 13467946 |
+|    4 | angel  | wayanad    | 2001 | 67854321 |
+|    5 | maria  | idukki     | 2002 | 45673820 |
++------+--------+------------+------+----------+
+mysql> insert into person values(6,'thehzi','kollam',2004,9785643);
+Query OK, 1 row affected (0.00 sec)
+
+commit;
+
+mysql> select * from person;
+
++------+--------+------------+------+----------+
+| SSN  | name   | city       | dob  | adhar_no |
++------+--------+------------+------+----------+
+|    1 | anu    | calicut    | 1998 |   675439 |
+|    2 | abi    | palakkad   | 1999 | 78564309 |
+|    3 | ram    | malappuram | 2000 | 13467946 |
+|    4 | angel  | wayanad    | 2001 | 67854321 |
+|    5 | maria  | idukki     | 2002 | 45673820 |
+|    6 | thehzi | kollam     | 2004 |  9785643 |
++------+--------+------------+------+----------+
+6 rows in set (0.00 sec)
+
+
+2.  ROLL BACK:
+     		
+mysql> select * from person;
++------+--------+------------+------+----------+
+| SSN  | name   | city       | dob  | adhar_no |
++------+--------+------------+------+----------+
+|    1 | anu    | calicut    | 1998 |   675439 |
+|    2 | abi    | palakkad   | 1999 | 78564309 |
+|    3 | ram    | malappuram | 2000 | 13467946 |
+|    4 | angel  | wayanad    | 2001 | 67854321 |
+|    5 | maria  | idukki     | 2002 | 45673820 |
+|    6 | thehzi | kollam     | 2004 |  9785643 |
++------+--------+------------+------+----------+
+6 rows in set (0.00 sec)
+
+mysql> set autocommit=off;
+Query OK, 0 rows affected (0.00 sec)
+
+mysql> select * from person;
++------+--------+------------+------+----------+
+| SSN  | name   | city       | dob  | adhar_no |
++------+--------+------------+------+----------+
+|    1 | anu    | calicut    | 1998 |   675439 |
+|    2 | abi    | palakkad   | 1999 | 78564309 |
+|    3 | ram    | malappuram | 2000 | 13467946 |
+|    4 | angel  | wayanad    | 2001 | 67854321 |
+|    5 | maria  | idukki     | 2002 | 45673820 |
+|    6 | thehzi | kollam     | 2004 |  9785643 |
++------+--------+------------+------+----------+
+6 rows in set (0.00 sec)
+
+mysql> delete from person where SSN=6;
+Query OK, 1 row affected (0.00 sec)
+
+mysql> select * from person;
++------+-------+------------+------+----------+
+| SSN  | name  | city       | dob  | adhar_no |
++------+-------+------------+------+----------+
+|    1 | anu   | calicut    | 1998 |   675439 |
+|    2 | abi   | palakkad   | 1999 | 78564309 |
+|    3 | ram   | malappuram | 2000 | 13467946 |
+|    4 | angel | wayanad    | 2001 | 67854321 |
+|    5 | maria | idukki     | 2002 | 45673820 |
++------+-------+------------+------+----------+
+5 rows in set (0.00 sec)
+
+mysql> rollback;
+Query OK, 0 rows affected (0.00 sec)
+
+mysql> select * from person;
++------+--------+------------+------+----------+
+| SSN  | name   | city       | dob  | adhar_no |
++------+--------+------------+------+----------+
+|    1 | anu    | calicut    | 1998 |   675439 |
+|    2 | abi    | palakkad   | 1999 | 78564309 |
+|    3 | ram    | malappuram | 2000 | 13467946 |
+|    4 | angel  | wayanad    | 2001 | 67854321 |
+|    5 | maria  | idukki     | 2002 | 45673820 |
+|    6 | thehzi | kollam     | 2004 |  9785643 |
++------+--------+------------+------+----------+
+6 rows in set (0.00 sec)
+
+3.  SAVE POINT:
+              
+  mysql> set autocommit=off;
+Query OK, 0 rows affected (0.00 sec)
+
+mysql> select * from person;
++------+--------+------------+------+----------+
+| SSN  | name   | city       | dob  | adhar_no |
++------+--------+------------+------+----------+
+|    1 | anu    | calicut    | 1998 |   675439 |
+|    2 | abi    | palakkad   | 1999 | 78564309 |
+|    3 | ram    | malappuram | 2000 | 13467946 |
+|    4 | angel  | wayanad    | 2001 | 67854321 |
+|    5 | maria  | idukki     | 2002 | 45673820 |
+|    6 | thehzi | kollam     | 2004 |  9785643 |
++------+--------+------------+------+----------+
+6 rows in set (0.00 sec)
+
+mysql> insert into person values(7,'nushri','thrissur',2005,7856409);
+Query OK, 1 row affected (0.00 sec)
+
+mysql> savepoint s1;
+Query OK, 0 rows affected (0.00 sec)
+
+mysql> insert into person values(8,'neena','malappuram',2002,985643);
+Query OK, 1 row affected (0.00 sec)
+
+mysql> savepoint s2;
+Query OK, 0 rows affected (0.00 sec)
+
+mysql> insert into person values(9,'hadiya','malappuram',2002,543278);
+Query OK, 1 row affected (0.00 sec)
+
+mysql> savepoint s3;
+Query OK, 0 rows affected (0.00 sec)
+   
+mysql> select * from person;
++------+--------+------------+------+----------+
+| SSN  | name   | city       | dob  | adhar_no |
++------+--------+------------+------+----------+
+|    1 | anu    | calicut    | 1998 |   675439 |
+|    2 | abi    | palakkad   | 1999 | 78564309 |
+|    3 | ram    | malappuram | 2000 | 13467946 |
+|    4 | angel  | wayanad    | 2001 | 67854321 |
+|    5 | maria  | idukki     | 2002 | 45673820 |
+|    6 | thehzi | kollam     | 2004 |  9785643 |
+|    7 | nushri | thrissur   | 2005 |  7856409 |
+|    8 | neena  | malappuram | 2002 |   985643 |
+|    9 | hadiya | malappuram | 2002 |   543278 |
++------+--------+------------+------+----------+
+9 rows in set (0.00 sec)
+
+mysql> rollback to s2;
+Query OK, 0 rows affected (0.00 sec)
+
+mysql> select * from person;
++------+--------+------------+------+----------+
+| SSN  | name   | city       | dob  | adhar_no |
++------+--------+------------+------+----------+
+|    1 | anu    | calicut    | 1998 |   675439 |
+|    2 | abi    | palakkad   | 1999 | 78564309 |
+|    3 | ram    | malappuram | 2000 | 13467946 |
+|    4 | angel  | wayanad    | 2001 | 67854321 |
+|    5 | maria  | idukki     | 2002 | 45673820 |
+|    6 | thehzi | kollam     | 2004 |  9785643 |
+|    7 | nushri | thrissur   | 2005 |  7856409 |
+|    8 | neena  | malappuram | 2002 |   985643 |
++------+--------+------------+------+----------+
+8 rows in set (0.00 sec)
+
+mysql> commit;
+Query OK, 0 rows affected (0.01 sec)
+
+
+//DCL COMMANDS:
+	
+	
+1.  GRANT: 
+
+ mysql> create user abc@'localhost'identified by'mypass';
+Query OK, 0 rows affected (0.01 sec)
+
+mysql> create user def
+    -> ^C
+mysql> create user def@'localhost'identified by'xxx'
+    -> ;
+Query OK, 0 rows affected (0.01 sec)
+
+mysql> grant select on invoice.customer to abc@'localhost';
+Query OK, 0 rows affected (0.01 sec)
+
+mysql> show grants for abc@'localhost';
++-----------------------------------------------------------+
+| Grants for abc@localhost                                  |
++-----------------------------------------------------------+
+| GRANT USAGE ON *.* TO `abc`@`localhost`                   |
+| GRANT SELECT ON `invoice`.`customer` TO `abc`@`localhost` |
++-----------------------------------------------------------+
+2 rows in set (0.00 sec)
+
+ 
+ 2.  REVOKE:
+ 
+ mysql> revoke select on invoice.customer from def@'localhost';
+Query OK, 0 rows affected (0.01 sec)
+
+ mysql> show grants for def@'localhost';
++-----------------------------------------------------------+
+| Grants for def@localhost                                  |
++-----------------------------------------------------------+
+| GRANT USAGE ON *.* TO `def`@`localhost`                   |
+| GRANT UPDATE ON `invoice`.`customer` TO `def`@`localhost` |
++-----------------------------------------------------------+
+2 rows in set (0.00 sec)
+   
