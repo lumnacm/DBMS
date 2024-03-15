@@ -1,0 +1,60 @@
+//DCL COMMANDS
+
+1.GRANT:
+
+mysql> grant select,insert on invoice.customer to abc@'localhost';
+Query OK, 0 rows affected (0.01 sec)
+
+mysql> show grants for abc@'localhost';
++-------------------------------------------------------------------+
+| Grants for abc@localhost                                          |
++-------------------------------------------------------------------+
+| GRANT USAGE ON *.* TO `abc`@`localhost`                           |
+| GRANT SELECT, INSERT ON `invoice`.`customer` TO `abc`@`localhost` |
++-------------------------------------------------------------------+
+2 rows in set (0.00 sec)
+
+mysql> grant delete,update on invoice.* to def@'localhost';
+Query OK, 0 rows affected (0.00 sec)
+
+
+mysql> show grants for def@'localhost';
++---------------------------------------------------------------------------+
+| Grants for def@localhost                                                  |
++---------------------------------------------------------------------------+
+| GRANT USAGE ON *.* TO `def`@`localhost`                                   |
+| GRANT UPDATE, DELETE ON `invoice`.* TO `def`@`localhost`                  |
+| GRANT SELECT, INSERT, UPDATE ON `invoice`.`customer` TO `def`@`localhost` |
++---------------------------------------------------------------------------+
+3 rows in set (0.00 sec)
+
+2.REVOKE:
+
+mysql> revoke select on invoice.customer from def@'localhost';
+Query OK, 0 rows affected (0.01 sec)
+
+mysql> show grants for def@'localhost';
++-------------------------------------------------------------------+
+| Grants for def@localhost                                          |
++-------------------------------------------------------------------+
+| GRANT USAGE ON *.* TO `def`@`localhost`                           |
+| GRANT UPDATE, DELETE ON `invoice`.* TO `def`@`localhost`          |
+| GRANT INSERT, UPDATE ON `invoice`.`customer` TO `def`@`localhost` |
++-------------------------------------------------------------------+
+3 rows in set (0.00 sec)
+
+//remove delete privilage of user 2.
+
+mysql> revoke delete on invoice.customer from  def@'localhost';
+Query OK, 0 rows affected (0.01 sec)
+
+mysql> show grants for def@'localhost';
++-------------------------------------------------------------------+
+| Grants for def@localhost                                          |
++-------------------------------------------------------------------+
+| GRANT USAGE ON *.* TO `def`@`localhost`                           |
+| GRANT UPDATE, DELETE ON `invoice`.* TO `def`@`localhost`          |
+| GRANT INSERT, UPDATE ON `invoice`.`customer` TO `def`@`localhost` |
++-------------------------------------------------------------------+
+3 rows in set (0.00 sec)
+
