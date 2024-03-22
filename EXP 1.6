@@ -1,0 +1,101 @@
+EXPERIMENT 1.6
+
+//OPTIMIZING DATABASE:(GROUP BY,AGGREGATE FUNCTIONS):
+
+1.List product name,price except soap on price order.
+
+mysql> select pname, price from product where pname!='soap' order by price;
++--------+-------+
+| pname  | price |
++--------+-------+
+| pencil |    31 |
+| pen    |    56 |
+| book   |    82 |
+| bag    |   133 |
++--------+-------+
+4 rows in set (0.00 sec)
+
+2.Find minimum,maximum and average price of product.
+
+mysql> select min(price),max(price),avg(price) from product;
++------------+------------+------------+
+| min(price) | max(price) | avg(price) |
++------------+------------+------------+
+|         31 |        133 |    80.8000 |
++------------+------------+------------+
+1 row in set (0.00 sec)
+
+3.Find number of customer in each city
+
+mysql> select * from customer;
++-------+--------+---------+----------+------------+
+| id    | name   | address | city     | ph_no      |
++-------+--------+---------+----------+------------+
+| 10004 | hadiya | LMNO    | pkd      | 5643095643 |
+| 10005 | banu   | XXXYZ   | thrissur | 1234567891 |
+| 10007 | lumna  | ZZZ     | tvm      | 5643298654 |
+| 10008 | nushri | QQQ     | ekm      | 8765432109 |
++-------+--------+---------+----------+------------+
+4 rows in set (0.00 sec)
+
+
+mysql> select city,count(*)from customer group by city;
++----------+----------+
+| city     | count(*) |
++----------+----------+
+| pkd      |        1 |
+| thrissur |        1 |
+| tvm      |        1 |
+| ekm      |        1 |
++----------+----------+
+4 rows in set (0.00 sec)
+
+4.Find number of customer in each city,only include city with more than 3 customers.
+
+mysql> select * from customer;
++-------+--------+---------+----------+------------+
+| id    | name   | address | city     | ph_no      |
++-------+--------+---------+----------+------------+
+| 10004 | hadiya | LMNO    | pkd      | 5643095643 |
+| 10005 | banu   | XXXYZ   | thrissur | 1234567891 |
+| 10007 | lumna  | ZZZ     | tvm      | 5643298654 |
+| 10008 | nushri | QQQ     | ekm      | 8765432109 |
++-------+--------+---------+----------+------------+
+4 rows in set (0.00 sec)
+
+mysql> insert into customer values(10001,'neha','ABC','calicut',9876509878);
+Query OK, 1 row affected (0.01 sec)
+
+mysql> insert into customer values(10002,'lina','GGG','calicut',1234321234);
+Query OK, 1 row affected (0.01 sec)
+
+mysql> insert into customer values(10003,'sera','www','calicut',984271053);
+Query OK, 1 row affected (0.01 sec)
+
+mysql> insert into customer values(10006,'thehzi','KKK','calicut',5643271891);
+Query OK, 1 row affected (0.00 sec)
+
+mysql> select * from customer;
++-------+--------+---------+----------+------------+
+| id    | name   | address | city     | ph_no      |
++-------+--------+---------+----------+------------+
+| 10001 | neha   | ABC     | calicut  | 9876509878 |
+| 10002 | lina   | GGG     | calicut  | 1234321234 |
+| 10003 | sera   | www     | calicut  |  984271053 |
+| 10004 | hadiya | LMNO    | pkd      | 5643095643 |
+| 10005 | banu   | XXXYZ   | thrissur | 1234567891 |
+| 10006 | thehzi | KKK     | calicut  | 5643271891 |
+| 10007 | lumna  | ZZZ     | tvm      | 5643298654 |
+| 10008 | nushri | QQQ     | ekm      | 8765432109 |
++-------+--------+---------+----------+------------+
+8 rows in set (0.00 sec)
+
+mysql> select city ,count(*) from customer group by city having count(city)>3;
+    
++---------+----------+
+| city    | count(*) |
++---------+----------+
+| calicut |        4 |
++---------+----------+
+1 row in set (0.00 sec)
+

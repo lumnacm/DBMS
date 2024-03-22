@@ -1,0 +1,75 @@
+EXPERIMENT 1.5
+
+//ACCESSING  DATABASE:(SUBQUERY).
+
+1.List the product names of invoice date 11 July 2021.
+
+mysql> select * from  invoice_master;
++--------+---------+------------+
+| inv_id | cust_id | inv_date   |
++--------+---------+------------+
+|    101 |   10001 | 2021-02-01 |
+|    102 |   10002 | 2022-04-28 |
+|    103 |   10003 | 2021-05-24 |
+|    104 |   10001 | 2021-08-14 |
+|    105 |   10004 | 2021-07-11 |
++--------+---------+------------+
+5 rows in set (0.00 sec)
+
+mysql> select * from customer;
++-------+--------+---------+----------+------------+
+| id    | name   | address | city     | ph_no      |
++-------+--------+---------+----------+------------+
+| 10004 | hadiya | LMNO    | pkd      | 5643095643 |
+| 10005 | banu   | XXXYZ   | thrissur | 1234567891 |
+| 10007 | lumna  | ZZZ     | tvm      | 5643298654 |
+| 10008 | nushri | QQQ     | ekm      | 8765432109 |
++-------+--------+---------+----------+------------+
+4 rows in set (0.00 sec)
+
+mysql> select name from customer where id IN (select cust_id from invoice_master where inv_date=20210711);
++--------+
+| name   |
++--------+
+| hadiya |
++--------+
+1 row in set (0.00 sec)
+
+2.List the product name  and price of each invoice item.
+
+mysql> select * from product;
++-----+--------+-------+
+| pid | pname  | price |
++-----+--------+-------+
+|   1 | pen    |    56 |
+|   2 | pencil |    31 |
+|   3 | soap   |   102 |
+|   4 | book   |    82 |
+|   5 | bag    |   133 |
++-----+--------+-------+
+5 rows in set (0.00 sec)
+
+mysql> select pname,price from product where pid IN (select pid from invoice_item);
++--------+-------+
+| pname  | price |
++--------+-------+
+| pen    |    56 |
+| pencil |    31 |
+| soap   |   102 |
+| book   |    82 |
++--------+-------+
+4 rows in set (0.00 sec)
+
+
+3.List the product names,only include their purchased quantity more than 3.
+
+mysql> select pname from product where pid IN(select pid from invoice_item where quantity>3);
++-------+
+| pname |
++-------+
+| bag   |
++-------+
+1 row in set (0.00 sec)
+
+
+

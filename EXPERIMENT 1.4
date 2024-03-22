@@ -1,0 +1,120 @@
+1.4//ACCESSING DATABASE(SELECT,FILTERING USING WHERE,HAVING,ORDER BY,CLAUSE)
+
+1.List all customer details.
+
+mysql> select * from customer;
++-------+--------+---------+----------+------------+
+| id    | name   | address | city     | ph_no      |
++-------+--------+---------+----------+------------+
+| 10004 | hadiya | LMNO    | pkd      | 5643095643 |
+| 10005 | banu   | XXXYZ   | thrissur | 1234567891 |
+| 10007 | lumna  | ZZZ     | tvm      | 5643298654 |
+| 10008 | nushri | QQQ     | ekm      | 8765432109 |
++-------+--------+---------+----------+------------+
+4 rows in set (0.00 sec)
+
+2.list pname,price of all product.
+
+mysql> select pname,price from product;
++--------+-------+
+| pname  | price |
++--------+-------+
+| pen    |    56 |
+| pencil |    31 |
+| soap   |   102 |
+| book   |    82 |
+| bag    |   133 |
++--------+-------+
+5 rows in set (0.00 sec)
+
+3.list all invoice item,avoid duplicates.
+mysql> select *  from product;
++-----+--------+-------+
+| pid | pname  | price |
++-----+--------+-------+
+|   1 | pen    |    56 |
+|   2 | pencil |    31 |
+|   3 | soap   |   102 |
+|   4 | book   |    82 |
+|   5 | bag    |   133 |
++-----+--------+-------+
+5 rows in set (0.00 sec)
+
+mysql> select pid from invoice_item;
++------+
+| pid  |
++------+mysql> select * from customer where city in("ekm","tvm");
++-------+--------+---------+------+------------+
+| id    | name   | address | city | ph_no      |
++-------+--------+---------+------+------------+
+| 10007 | lumna  | ZZZ     | tvm  | 5643298654 |
+| 10008 | nushri | QQQ     | ekm  | 8765432109 |
++-------+--------+---------+------+------------+
+2 rows in set (0.00 sec)
+
+
+|    1 |
+|    2 |
+|    2 |
+|    3 |
+|    4 |
++------+
+5 rows in set (0.00 sec)
+
+mysql> select distinct pid from invoice_item;
++------+
+| pid  |
++------+
+|    1 |
+|    2 |
+|    3 |
+|    4 |
++------+
+4 rows in set (0.00 sec)
+
+4.list product price between 50rs and 150rs
+
+mysql> select price from product where price between 50 and 150;
++-------+
+| price |
++-------+
+|    56 |
+|   102 |
+|    82 |
+|   133 |
++-------+
+4 rows in set (0.00 sec)
+
+5.List the customer details who lives in 'ekm'and 'tvm'.
+
+mysql> select * from customer where city in("ekm","tvm");
++-------+--------+---------+------+------------+
+| id    | name   | address | city | ph_no      |
++-------+--------+---------+------+------------+
+| 10007 | lumna  | ZZZ     | tvm  | 5643298654 |
+| 10008 | nushri | QQQ     | ekm  | 8765432109 |
++-------+--------+---------+------+------------+
+2 rows in set (0.00 sec)
+
+6.List the invoice details from 1st january 2021 to 31st march 2021.
+
+mysql> select * from invoice_master where inv_date between 20210101 and 20210331;
++--------+---------+------------+
+| inv_id | cust_id | inv_date   |
++--------+---------+------------+
+|    101 |   10001 | 2021-02-01 |
++--------+---------+------------+
+1 row in set (0.01 sec)
+
+7.List the customer deatils who not live in 'tvm'
+
+mysql> select * from customer where city NOT IN ("tvm");
++-------+--------+---------+----------+------------+
+| id    | name   | address | city     | ph_no      |
++-------+--------+---------+----------+------------+
+| 10004 | hadiya | LMNO    | pkd      | 5643095643 |
+| 10005 | banu   | XXXYZ   | thrissur | 1234567891 |
+| 10008 | nushri | QQQ     | ekm      | 8765432109 |
++-------+--------+---------+----------+------------+
+3 rows in set (0.00 sec)
+
