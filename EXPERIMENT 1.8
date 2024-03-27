@@ -1,0 +1,48 @@
+//EXPERIMENT 1.8
+
+//ACCESSING DATABASE:(VIEWS)
+
+1.Create a view for customer who have purchased products.
+
+mysql> select * from customer;
++-------+-------------+---------+----------+------------+
+| id    | name        | address | city     | ph_no      |
++-------+-------------+---------+----------+------------+
+| 10001 | neha        | ABC     | calicut  | 9876509878 |
+| 10002 | lina        | GGG     | calicut  | 1234321234 |
+| 10003 | evlien sera | www     | calicut  |  984271053 |
+| 10004 | hadiya      | LMNO    | pkd      | 5643095643 |
+| 10005 | banu        | XXXYZ   | thrissur | 1234567891 |
+| 10006 | thehzi      | KKK     | calicut  | 5643271891 |
+| 10007 | lumna       | ZZZ     | tvm      | 5643298654 |
+| 10008 | nushri      | QQQ     | ekm      | 8765432109 |
++-------+-------------+---------+----------+------------+
+8 rows in set (0.00 sec)
+
+mysql> select * from invoice_master;
++--------+---------+------------+
+| inv_id | cust_id | inv_date   |
++--------+---------+------------+
+|    101 |   10001 | 2021-02-01 |
+|    102 |   10002 | 2022-04-28 |
+|    103 |   10003 | 2021-05-24 |
+|    104 |   10001 | 2021-08-14 |
+|    105 |   10004 | 2021-07-11 |
++--------+---------+------------+
+5 rows in set (0.00 sec)
+
+
+mysql> create view details as select name from customer where id in (select cust_id from invoice_master);
+Query OK, 0 rows affected (0.01 sec)
+
+mysql> select * from details;
++-------------+
+| name        |
++-------------+
+| neha        |
+| lina        |
+| evlien sera |
+| hadiya      |
++-------------+
+4 rows in set (0.01 sec)
+
