@@ -1,0 +1,20 @@
+//EXPERIMENT 1.8
+
+//ACCESSING DATABASE:(VIEWS)
+
+1.Create a view for customer who have purchased products.
+
+mysql> create view details as select name from customer where id in (select cust_id from invoice_master);
+Query OK, 0 rows affected (0.01 sec)
+
+mysql> select * from details;
++-------------+
+| name        |
++-------------+
+| neha        |
+| lina        |
+| evlien sera |
+| hadiya      |
++-------------+
+4 rows in set (0.01 sec)
+
