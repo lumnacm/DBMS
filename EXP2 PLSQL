@@ -1,0 +1,67 @@
+EXP 2.PL SQL
+//PL/SQL PROGRAMS-STORED PROCEDURES
+
+1.Create procedure to display all tables in the invoice database.
+
+mysql> DELIMITER //
+mysql> create procedure  new1() begin select * from customer;select * from product;select * from invoice_master;select * from invoice_item;end//
+Query OK, 0 rows affected (0.01 sec)
+
+mysql> call new1()
+    -> //
++-------+-------------+---------+----------+------------+
+| id    | name        | address | city     | ph_no      |
++-------+-------------+---------+----------+------------+
+| 10001 | neha        | ABC     | calicut  | 9876509878 |
+| 10002 | lina        | GGG     | calicut  | 1234321234 |
+| 10003 | evlien sera | www     | calicut  |  984271053 |
+| 10004 | hadiya      | LMNO    | pkd      | 5643095643 |
+| 10005 | banu        | XXXYZ   | thrissur | 1234567891 |
+| 10006 | thehzi      | KKK     | calicut  | 5643271891 |
+| 10007 | lumna       | ZZZ     | tvm      | 5643298654 |
+| 10008 | nushri      | QQQ     | ekm      | 8765432109 |
++-------+-------------+---------+----------+------------+
+8 rows in set (0.00 sec)
+
++-----+--------+-------+
+| pid | pname  | price |
++-----+--------+-------+
+|   1 | pen    |    56 |
+|   2 | pencil |    31 |
+|   3 | soap   |   102 |
+|   4 | book   |    82 |
+|   5 | bag    |   133 |
++-----+--------+-------+
+5 rows in set (0.00 sec)
+
++--------+---------+------------+
+| inv_id | cust_id | inv_date   |
++--------+---------+------------+
+|    101 |   10001 | 2021-02-01 |
+|    102 |   10002 | 2022-04-28 |
+|    103 |   10003 | 2021-05-24 |
+|    104 |   10001 | 2021-08-14 |
+|    105 |   10004 | 2021-07-11 |
++--------+---------+------------+
+5 rows in set (0.00 sec)
+
++--------+------+----------+
+| inv_id | pid  | quantity |
++--------+------+----------+
+|    101 |    1 |        2 |
+|    102 |    2 |        2 |
+|    103 |    2 |        1 |
+|    104 |    3 |        1 |
+|    104 |    4 |        1 |
+|    105 |    5 |        8 |
+|    101 |    3 |        3 |
+|    102 |    4 |        2 |
++--------+------+----------+
+8 rows in set (0.00 sec)
+
+Query OK, 0 rows affected (0.00 sec)
+
+mysql> 
+
+
+
