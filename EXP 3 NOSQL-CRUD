@@ -1,0 +1,184 @@
+Experiment 3
+
+NoSQL-CRUD
+-----------
+
+
+1.Write a MongoDB query to create an INVOICE dtabase and collections(CUSTOMER,PRODUCT) and its corresponding documents.
+
+test> use invoice
+switched to db invoice
+invoice> db.createCollection("customer")
+{ ok: 1 }
+invoice> db.createCollection("product")
+{ ok: 1 }
+invoice> show collections
+customer
+product
+invoice> db.customer.insertOne({"id":"10001","name":"lumna","address":"ABCD","city":"calicut","ph_no":"2345678901"})
+{
+  acknowledged: true,
+  insertedId: ObjectId('661389200268dc1d8cef634b')
+}
+
+invoice> db.customer.insertMany([{"id":"10002","name":"thehzi","address":"EFGH","city":"ekm","ph_no":"12345678998"},{"id":"10003","name":"shamla","address":"HIJK","city":"tvm","ph_no":"5423986754"}])
+{
+  acknowledged: true,
+  insertedIds: {
+    '0': ObjectId('66138b1c0268dc1d8cef634c'),
+    '1': ObjectId('66138b1c0268dc1d8cef634d')
+  }
+}
+
+invoice> db.customer.insertMany([{"id":"10004","name":"hadiya","address":"LMNO","city":"pkd","ph_no":"5643095643"},{"id":"10005","name":"banu","address":"PQRS","city":"wynd","ph_no":"2341564786"}])
+{
+  acknowledged: true,
+  insertedIds: {
+    '0': ObjectId('66138c2c0268dc1d8cef634e'),
+    '1': ObjectId('66138c2c0268dc1d8cef634f')
+  }
+}
+
+
+2.write a MongoDB query to find all documents from the collection CUSTOMER.
+
+invoice> db.customer.find()
+[
+  {
+    _id: ObjectId('661389200268dc1d8cef634b'),
+    id: '10001',
+    name: 'lumna',
+    address: 'ABCD',
+    city: 'calicut',
+    ph_no: '2345678901'
+  },
+  {
+    _id: ObjectId('66138b1c0268dc1d8cef634c'),
+    id: '10002',
+    name: 'thehzi',
+    address: 'EFGH',
+    city: 'ekm',
+    ph_no: '12345678998'
+  },
+  {
+    _id: ObjectId('66138b1c0268dc1d8cef634d'),
+    id: '10003',
+    name: 'shamla',
+    address: 'HIJK',
+    city: 'tvm',
+    ph_no: '5423986754'
+  },
+
+  {
+    _id: ObjectId('66138c2c0268dc1d8cef634e'),
+    id: '10004',
+    name: 'hadiya',
+    address: 'LMNO',
+    city: 'pkd',
+    ph_no: '5643095643'
+  },
+  {
+    _id: ObjectId('66138c2c0268dc1d8cef634f'),
+    id: '10005',
+    name: 'banu',
+    address: 'PQRS',
+    city: 'wynd',
+    ph_no: '2341564786'
+  }
+]
+
+3.Write a MongoDB query to update the city in the collection CUSTOMER.
+
+invoice> db.customer.updateOne({"city":"wynd"},{$set:{"city":"malappuram"}})
+{
+  acknowledged: true,
+  insertedId: null,
+  matchedCount: 1,
+  modifiedCount: 1,
+  upsertedCount: 0
+}
+invoice> db.customer.find()
+[
+  {
+    _id: ObjectId('661389200268dc1d8cef634b'),
+    id: '10001',
+    name: 'lumna',
+    address: 'ABCD',
+    city: 'calicut',
+    ph_no: '2345678901'
+  },
+  {
+    _id: ObjectId('66138b1c0268dc1d8cef634c'),
+    id: '10002',
+    name: 'thehzi',
+    address: 'EFGH',
+    city: 'ekm',
+    ph_no: '12345678998'
+  },
+  {
+    _id: ObjectId('66138b1c0268dc1d8cef634d'),
+    id: '1003',
+    name: 'shamla',
+    address: 'HIJK',
+    city: 'tvm',
+    ph_no: '5423986754'
+  },
+  {
+    _id: ObjectId('66138c2c0268dc1d8cef634e'),
+    id: '10004',
+    name: 'hadiya',
+    address: 'LMNO',
+    city: 'pkd',
+    ph_no: '5643095643'
+  },
+  {
+    _id: ObjectId('66138c2c0268dc1d8cef634f'),
+    id: '10005',
+    name: 'banu',
+    address: 'PQRS',
+    city: 'malappuram',
+    ph_no: '2341564786'
+  }
+]
+
+
+4.Write a MongoDB query to delete the first matched document whose city is "calicut".
+
+invoice> db.customer.deleteOne({"city":"calicut"})
+{ acknowledged: true, deletedCount: 1 }
+invoice> db.customer.find()
+[
+  {
+    _id: ObjectId('66138b1c0268dc1d8cef634c'),
+    id: '10002',
+    name: 'thehzi',
+    address: 'EFGH',
+    city: 'ekm',
+    ph_no: '12345678998'
+  },
+  {
+    _id: ObjectId('66138b1c0268dc1d8cef634d'),
+    id: '1003',
+    name: 'shamla',
+    address: 'HIJK',
+    city: 'tvm',
+    ph_no: '5423986754'
+  },
+  {
+    _id: ObjectId('66138c2c0268dc1d8cef634e'),
+    id: '10004',
+    name: 'hadiya',
+    address: 'LMNO',
+    city: 'pkd',
+    ph_no: '5643095643'
+  },
+  {
+    _id: ObjectId('66138c2c0268dc1d8cef634f'),
+    id: '10005',
+    name: 'banu',
+    address: 'PQRS',
+    city: 'malappuram',
+    ph_no: '2341564786'
+  }
+]
+
