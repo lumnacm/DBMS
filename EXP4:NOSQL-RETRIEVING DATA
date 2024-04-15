@@ -1,0 +1,101 @@
+                                         EXPERIMENT-4:NOSQL-RETRIEVING DATA
+                                        -------------------------------------
+
+1.Write a MongoDB query to display the customer documents having city 'ekm;tvm'.
+
+ invoice> db.customer.find({$or:[{"city":"tvm"},{"city":"ekm"}]}).pretty()
+[
+  {
+    _id: ObjectId('66138b1c0268dc1d8cef634c'),
+    id: '10002',
+    name: 'thehzi',
+    address: 'EFGH',
+    city: 'ekm',
+    ph_no: '12345678998'
+  },
+  {
+    _id: ObjectId('66138b1c0268dc1d8cef634d'),
+    id: '10003',
+    name: 'shamla',
+    address: 'HIJK',
+    city: 'tvm',
+    ph_no: '5423986754'
+  }
+]
+
+
+2.Write a MongoDB query to display all customer documents who have  age>50.
+
+invoice> db.customer.find({"age":{$lt:50}}).pretty()
+[
+  {
+    _id: ObjectId('661ca9ac60ed4304f0ef634c'),
+    id: 10001,
+    name: 'lumna',
+    address: 'ABCD',
+    city: 'calicut',
+    ph_no: 2345678901,
+    age: 22
+  },
+  {
+    _id: ObjectId('661caa2560ed4304f0ef634e'),
+    id: 10005,
+    name: 'banu',
+    address: 'PQRS',
+    city: 'wynd',
+    ph_no: 2341564786,
+    age: 34
+  }
+]
+
+
+
+3.Write a MongoDB query to find customer documents who have not live in 'tvm'.
+
+invoice> db.customer.find({"city":{$ne:"tvm"}}).pretty()
+[
+  {
+    _id: ObjectId('66138b1c0268dc1d8cef634c'),
+    id: '10002',
+    name: 'thehzi',
+    address: 'EFGH',
+    city: 'ekm',
+    ph_no: '12345678998'
+  },
+  {
+    _id: ObjectId('66138c2c0268dc1d8cef634e'),
+    id: '10004',
+    name: 'hadiya',
+    address: 'LMNO',
+    city: 'pkd',
+    ph_no: '5643095643'
+  },
+  {
+    _id: ObjectId('661ca9ac60ed4304f0ef634c'),
+    id: 10001,
+    name: 'lumna',
+    address: 'ABCD',
+    city: 'calicut',
+    ph_no: 2345678901,
+    age: 22
+  },
+  {
+    _id: ObjectId('661caa2560ed4304f0ef634d'),
+    id: 10004,
+    name: 'hadiya',
+    address: 'LMNO',
+    city: 'pkd',
+    ph_no: 5643095643
+  },
+  {
+    _id: ObjectId('661caa2560ed4304f0ef634e'),
+    id: 10005,
+    name: 'banu',
+    address: 'PQRS',
+    city: 'wynd',
+    ph_no: 2341564786,
+    age: 34
+  }
+]
+
+
